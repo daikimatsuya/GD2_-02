@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     Transform llTransform;
     Transform rlTransform;
 
+
+
     private float leftRad;
     private float rightRad;
 
@@ -28,13 +30,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        llTransform.localScale = Vector3.zero;
+        rlTransform.localScale= Vector3.zero;
         // rb.velocity = new Vector3(2.0f * (Input.GetAxis("leftStickX")+Input.GetAxis("rightStickX")), rb.velocity.y, -2.0f * (Input.GetAxis("leftStickY")+Input.GetAxis("rightStickY")));
         float leftDegree = Mathf.Atan2(Input.GetAxis("leftStickX"), Input.GetAxis("leftStickY")) * Mathf.Rad2Deg;
         float rightDegree = Mathf.Atan2(Input.GetAxis("rightStickX"), Input.GetAxis("rightStickY")) * Mathf.Rad2Deg;
 
         if (Input.GetAxis("leftStickX") != 0 || Input.GetAxis("leftStickY") != 0)
         {
+            llTransform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             if (leftDegree < 0)
             {
                 leftDegree += 360;
@@ -50,6 +54,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetAxis("rightStickX") != 0 || Input.GetAxis("rightStickY") != 0)
         {
+            rlTransform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             if (rightDegree < 0)
             {
                 rightDegree += 360;
@@ -63,7 +68,7 @@ public class Player : MonoBehaviour
                 rightDegree = 105;
             }
         }
-        llTransform.localRotation= Quaternion.Euler(90,0, leftDegree);
-        rlTransform.localRotation = Quaternion.Euler(90, 0, rightDegree);
+        llTransform.localRotation= Quaternion.Euler(90,0, leftDegree+180);
+        rlTransform.localRotation = Quaternion.Euler(90, 0, rightDegree+180);
     }
 }
