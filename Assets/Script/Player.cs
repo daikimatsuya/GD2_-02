@@ -33,15 +33,36 @@ public class Player : MonoBehaviour
         float leftDegree = Mathf.Atan2(Input.GetAxis("leftStickX"), Input.GetAxis("leftStickY")) * Mathf.Rad2Deg;
         float rightDegree = Mathf.Atan2(Input.GetAxis("rightStickX"), Input.GetAxis("rightStickY")) * Mathf.Rad2Deg;
 
-        if (leftDegree < 0)
+        if (Input.GetAxis("leftStickX") != 0 || Input.GetAxis("leftStickY") != 0)
         {
-            leftDegree += 360;
+            if (leftDegree < 0)
+            {
+                leftDegree += 360;
+            }
+            if (leftDegree > 255)
+            {
+                leftDegree = 255;
+            }
+            if (leftDegree < 105)
+            {
+                leftDegree = 105;
+            }
         }
-        if (rightDegree < 0)
+        if (Input.GetAxis("rightStickX") != 0 || Input.GetAxis("rightStickY") != 0)
         {
-            rightDegree += 360;
+            if (rightDegree < 0)
+            {
+                rightDegree += 360;
+            }
+            if (rightDegree > 255)
+            {
+                rightDegree = 255;
+            }
+            if (rightDegree < 105)
+            {
+                rightDegree = 105;
+            }
         }
-
         llTransform.localRotation= Quaternion.Euler(90,0, leftDegree);
         rlTransform.localRotation = Quaternion.Euler(90, 0, rightDegree);
     }
