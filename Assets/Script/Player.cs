@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
 
     public float playerAcceleration;
     public float MaxPlayerMoveSpeed;
+    public int playerHp;
+    public int meatDamage;
+
     private void LazerMove()
     {
         llTransform.localScale = Vector3.zero;
@@ -88,6 +91,36 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector3(0, rb.velocity.y, rb.velocity.z);
         }
     }
+    private void EatMeat(int meat)
+    {
+        if(meat == 0)
+        {
+            playerHp -= meatDamage;
+        }
+        if(meat == 1)
+        {
+            playerHp+= meatDamage;
+        }
+        if (meat == 2)
+        {
+            playerHp -= meatDamage * 2;
+        }
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "rawMeat")
+        {
+            EatMeat(0);
+        }
+        if(other.tag == "cookedMeat")
+        {
+            EatMeat(1);
+        }
+        if (other.tag == "coal")
+        {
+            EatMeat(2);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -104,6 +137,5 @@ public class Player : MonoBehaviour
     {
         PlayerMove();
         LazerMove();
-        
     }
 }
