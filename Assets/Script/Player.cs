@@ -15,7 +15,10 @@ public class Player : MonoBehaviour
 
     private float leftRad;
     private float rightRad;
+    private float playerMoveSpeed;
 
+    public float playerAcceleration;
+    public float MaxPlayerMoveSpeed;
     private void LazerMove()
     {
         llTransform.localScale = Vector3.zero;
@@ -59,6 +62,32 @@ public class Player : MonoBehaviour
         llTransform.localRotation = Quaternion.Euler(90, 0, leftDegree + 180);
         rlTransform.localRotation = Quaternion.Euler(90, 0, rightDegree + 180);
     }
+    private void PlayerMove()
+    {
+        playerMoveSpeed = rb.velocity.x;
+        if (Input.GetAxis("MoveLeft") != 0)
+        {
+            if (playerMoveSpeed > -MaxPlayerMoveSpeed)
+            {
+                rb.velocity = new Vector3(rb.velocity.x - playerAcceleration, rb.velocity.y, rb.velocity.z);
+            }
+        }
+        if (Input.GetAxis("MoveRight") != 0)
+        {
+            if (playerMoveSpeed < MaxPlayerMoveSpeed)
+            {
+                rb.velocity = new Vector3(rb.velocity.x + playerAcceleration, rb.velocity.y, rb.velocity.z);
+            }
+        }
+        if (Input.GetAxis("MoveLeft") == 0 && Input.GetAxis("MoveRight") == 0)
+        {
+            rb.velocity=new Vector3(0,rb.velocity.y,rb.velocity.z);
+        }
+        if(Input.GetAxis("MoveLeft")!= 0 && Input.GetAxis("MoveRight") != 0)
+        {
+            rb.velocity = new Vector3(0, rb.velocity.y, rb.velocity.z);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +102,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerMove();
         LazerMove();
+        
     }
 }
