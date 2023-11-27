@@ -16,23 +16,11 @@ public class Player : MonoBehaviour
     private float leftRad;
     private float rightRad;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        leftLazer = transform.Find("LeftLazer").gameObject;
-        rightLazer = transform.Find("RightLazer").gameObject;
-
-        llTransform=leftLazer.GetComponent<Transform>();
-        rlTransform=rightLazer.GetComponent<Transform>();
-    }
-
-    // Update is called once per frame
-    void Update()
+    private void LazerMove()
     {
         llTransform.localScale = Vector3.zero;
-        rlTransform.localScale= Vector3.zero;
-        // rb.velocity = new Vector3(2.0f * (Input.GetAxis("leftStickX")+Input.GetAxis("rightStickX")), rb.velocity.y, -2.0f * (Input.GetAxis("leftStickY")+Input.GetAxis("rightStickY")));
+        rlTransform.localScale = Vector3.zero;
+
         float leftDegree = Mathf.Atan2(Input.GetAxis("leftStickX"), Input.GetAxis("leftStickY")) * Mathf.Rad2Deg;
         float rightDegree = Mathf.Atan2(Input.GetAxis("rightStickX"), Input.GetAxis("rightStickY")) * Mathf.Rad2Deg;
 
@@ -68,7 +56,23 @@ public class Player : MonoBehaviour
                 rightDegree = 105;
             }
         }
-        llTransform.localRotation= Quaternion.Euler(90,0, leftDegree+180);
-        rlTransform.localRotation = Quaternion.Euler(90, 0, rightDegree+180);
+        llTransform.localRotation = Quaternion.Euler(90, 0, leftDegree + 180);
+        rlTransform.localRotation = Quaternion.Euler(90, 0, rightDegree + 180);
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        leftLazer = transform.Find("LeftLazer").gameObject;
+        rightLazer = transform.Find("RightLazer").gameObject;
+
+        llTransform=leftLazer.GetComponent<Transform>();
+        rlTransform=rightLazer.GetComponent<Transform>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        LazerMove();
     }
 }
