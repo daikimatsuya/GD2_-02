@@ -11,6 +11,7 @@ public class Meat : MonoBehaviour
     public int bestTime;
     public int coalTime;
 
+    Rigidbody rb;
 
     private void Cook()
     {
@@ -29,11 +30,20 @@ public class Meat : MonoBehaviour
     {
         cookTime += addTime;
     }
+    private void LazerAcceleration(Vector3 eyePos)
+    {
+        Vector3 meatPos = GetComponent<Transform>().position;
+        Vector3 distance = new Vector3(meatPos.x - eyePos.x, meatPos.z - eyePos.z);
+        Vector3 acce = new Vector3((distance.x*distance.x) / (distance.x * distance.x + distance.z * distance.z), (distance.z*distance.z) / (distance.x * distance.x + distance.z * distance.z));
+        rb.velocity = new Vector3(rb.velocity.x + acce.x, rb.velocity.y, rb.velocity.z + acce.z);
+    }
     public void OnTriggerStay(Collider other)
     {
         if (other.tag == "Lazer")
         {
             AddCookTime(1);
+            Vector3 eyeBall = other.GetComponentInParent<Transform>().transform.position;
+            LazerAcceleration(eyeBall);
         }
     }
 
@@ -43,6 +53,8 @@ public class Meat : MonoBehaviour
         cookTime = 0;
         bestTimeBuff = bestTime * 60;
         coalTimeBuff = coalTime * 60;
+
+        rb=GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
