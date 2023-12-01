@@ -33,13 +33,13 @@ public class Meat : MonoBehaviour
     private void LazerAcceleration(Vector3 eyePos)
     {
         Vector3 meatPos = GetComponent<Transform>().position;
-        Vector3 distance = new Vector3(meatPos.x - eyePos.x, meatPos.z - eyePos.z);
-        Vector3 acce = new Vector3((distance.x*distance.x) / (distance.x * distance.x + distance.z * distance.z), (distance.z*distance.z) / (distance.x * distance.x + distance.z * distance.z));
-        rb.velocity = new Vector3(rb.velocity.x + acce.x, rb.velocity.y, rb.velocity.z + acce.z);
+        Vector3 distance = new Vector3(meatPos.x - eyePos.x, 0, meatPos.z - eyePos.z);
+        Vector3 acce = new Vector3((distance.x * distance.x) / (distance.x * distance.x + distance.z * distance.z), 0, (distance.z * distance.z) / (distance.x * distance.x + distance.z * distance.z));
+        rb.velocity = new Vector3(rb.velocity.x + distance.x, rb.velocity.y, rb.velocity.z + distance.z);
     }
     public void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Lazer")
+        if (other.tag == "lLazer" || other.tag == "rLazer") 
         {
             AddCookTime(1);
             Vector3 eyeBall = other.GetComponentInParent<Transform>().transform.position;

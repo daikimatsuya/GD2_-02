@@ -5,13 +5,15 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Rigidbody rb;
-    GameObject leftLazer;
-    GameObject rightLazer;
+    public GameObject leftLazer;
+    public GameObject rightLazer;
+    public GameObject leftEye;
+    public GameObject rightEye;
 
     Transform llTransform;
     Transform rlTransform;
 
-
+    
 
     private float leftRad;
     private float rightRad;
@@ -29,9 +31,13 @@ public class Player : MonoBehaviour
 
         float leftDegree = Mathf.Atan2(Input.GetAxis("leftStickX"), Input.GetAxis("leftStickY")) * Mathf.Rad2Deg;
         float rightDegree = Mathf.Atan2(Input.GetAxis("rightStickX"), Input.GetAxis("rightStickY")) * Mathf.Rad2Deg;
-
+        
         if (Input.GetAxis("leftStickX") != 0 || Input.GetAxis("leftStickY") != 0)
         {
+            if (leftEye.tag=="lEye")
+            {
+                leftEye.tag = "lLazer";
+            }
             llTransform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             if (leftDegree < 0)
             {
@@ -46,8 +52,19 @@ public class Player : MonoBehaviour
                 leftDegree = 105;
             }
         }
+        else
+        {
+            if (leftEye.tag == "lLazer")
+            {
+                leftEye.tag = "lEye";
+            }
+        }
         if (Input.GetAxis("rightStickX") != 0 || Input.GetAxis("rightStickY") != 0)
         {
+            if (rightEye.tag == "rEye")
+            {
+                rightEye.tag = "rLazer";
+            }
             rlTransform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             if (rightDegree < 0)
             {
@@ -60,6 +77,13 @@ public class Player : MonoBehaviour
             if (rightDegree < 105)
             {
                 rightDegree = 105;
+            }
+        }
+        else
+        {
+            if(rightEye.tag == "rLazer")
+            {
+                rightEye.tag = "rEye";
             }
         }
         llTransform.localRotation = Quaternion.Euler(90, 0, leftDegree + 180);
@@ -127,6 +151,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         leftLazer = transform.Find("LeftLazer").gameObject;
         rightLazer = transform.Find("RightLazer").gameObject;
+        leftEye = leftLazer.transform.Find("leftLazer").gameObject;
+        rightEye = rightLazer.transform.Find("rightLazer").gameObject;
 
         llTransform=leftLazer.GetComponent<Transform>();
         rlTransform=rightLazer.GetComponent<Transform>();
