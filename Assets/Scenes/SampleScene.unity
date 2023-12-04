@@ -978,6 +978,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1589609723}
     m_Modifications:
+    - target: {fileID: 3300312226813174944, guid: aeb5baa65cfc9954d9c323966b02b597, type: 3}
+      propertyPath: m_Mass
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3300312226813174944, guid: aeb5baa65cfc9954d9c323966b02b597, type: 3}
+      propertyPath: m_Constraints
+      value: 124
+      objectReference: {fileID: 0}
+    - target: {fileID: 3300312226813174944, guid: aeb5baa65cfc9954d9c323966b02b597, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3300312226813174945, guid: aeb5baa65cfc9954d9c323966b02b597, type: 3}
       propertyPath: m_RootOrder
       value: 0
