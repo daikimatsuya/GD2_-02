@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5064226056636189543}
   m_Layer: 0
   m_Name: rightLazer
-  m_TagString: Lazer
+  m_TagString: rEye
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -229,8 +229,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f2a4f626c405d04ab9f753900744458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftLazer: {fileID: 0}
+  rightLazer: {fileID: 0}
+  leftEye: {fileID: 0}
+  rightEye: {fileID: 0}
   playerAcceleration: 0.1
   MaxPlayerMoveSpeed: 2
+  playerHp: 0
+  meatDamage: 0
 --- !u!54 &3300312226813174944
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -243,7 +249,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -261,7 +267,7 @@ GameObject:
   - component: {fileID: 3880698733381246513}
   m_Layer: 0
   m_Name: RightLazer
-  m_TagString: Untagged
+  m_TagString: Lazer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,7 +367,7 @@ GameObject:
   - component: {fileID: 6929113172550764834}
   m_Layer: 0
   m_Name: leftLazer
-  m_TagString: Lazer
+  m_TagString: lEye
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -475,7 +481,7 @@ GameObject:
   - component: {fileID: 7120891136283401585}
   m_Layer: 0
   m_Name: LeftLazer
-  m_TagString: Untagged
+  m_TagString: Lazer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

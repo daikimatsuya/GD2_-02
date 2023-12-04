@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     public int playerHp;
     public int meatDamage;
 
+
     private void LazerMove()
     {
         llTransform.localScale = Vector3.zero;
