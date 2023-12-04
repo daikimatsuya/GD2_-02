@@ -10,6 +10,9 @@ public class Meat : MonoBehaviour
     private int cookTime;
     private int bestTimeBuff;
     private int coalTimeBuff;
+    private Vector2 acceBuff;
+    private bool isReachLazer;
+    private bool isCharge;
     public float maxX;
     public float maxZ;
 
@@ -36,26 +39,50 @@ public class Meat : MonoBehaviour
     {
         cookTime += addTime;
     }
-    private void LazerAcceleration(Vector3 eyePos,Vector3 lazerPos)
+    private void LazerAcceleration(Vector3 eyePos, Vector3 lazerPos)
     {
         Vector3 meatPos = GetComponent<Transform>().position;
         Vector3 distance = new Vector3(meatPos.x - eyePos.x, 0, meatPos.z - eyePos.z);
-        Vector3 distance2 = new Vector3(meatPos.x - lazerPos.x, 0, meatPos.z - lazerPos.z);
-        Vector3 distance3 = new Vector3(distance.x - distance2.x, 0, distance.z - distance2.z);
-
-        Vector3 acce = new Vector3((distance3.x * distance3.x) / (distance3.x * distance3.x + distance3.z * distance3.z), 0, (distance3.z * distance3.z) / (distance3.x * distance3.x + distance3.z * distance3.z));
-       
-        rb.velocity = new Vector3(rb.velocity.x + distance.x, rb.velocity.y, rb.velocity.z + distance.z);
-
+        acceBuff = new Vector2(acceBuff.x + distance.x/10, acceBuff.y + distance.z/10);
+       //clamp
+        {
+            if (acceBuff.x > maxX)
+            {
+                acceBuff.x = maxX;
+            }
+            else if (acceBuff.x < -maxX)
+            {
+                acceBuff.x = -maxX;
+            }
+            if (acceBuff.y > maxZ)
+            {
+                acceBuff.y = maxZ;
+            }
+            else if (acceBuff.y < -maxZ)
+            {
+                acceBuff.y = -maxZ;
+            }
+            isCharge = true;
+        }
     }
-    public double ToRadian(double angle)
+    private void AddAcceleration()
     {
-        return angle * Math.PI / 180f;
+        if (!isReachLazer)
+        {
+            if (isCharge)
+            {
+                rb.velocity = new Vector3(acceBuff.x, 0, acceBuff.y);
+                acceBuff = Vector2.zero;
+            }
+            isCharge = false;
+        }
     }
     public void OnTriggerStay(Collider other)
     {
+
         if (other.tag == "lLazer" || other.tag == "rLazer") 
         {
+            isReachLazer = true;
             AddCookTime(1);
             Vector3 eyeBall = other.transform.parent.gameObject.transform.position;
             Vector3 eyeRotate = new Vector3(other.transform.parent.gameObject.transform.rotation.x, other.transform.parent.gameObject.transform.rotation.y, other.transform.parent.gameObject.transform.rotation.z);
@@ -63,10 +90,18 @@ public class Meat : MonoBehaviour
             LazerAcceleration(eyeBall,lazerPos);
         }
     }
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "lLazer" || other.tag == "rLazer")
+        {
+            rb.velocity= Vector3.zero;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        isReachLazer = false;
         cookTime = 0;
         bestTimeBuff = bestTime * 60;
         coalTimeBuff = coalTime * 60;
@@ -78,6 +113,13 @@ public class Meat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         Cook();
+        AddAcceleration();
+   
+    }
+    private void FixedUpdate()
+    {
+        isReachLazer = false;
     }
 }
