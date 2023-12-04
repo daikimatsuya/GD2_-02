@@ -93,25 +93,25 @@ public class Player : MonoBehaviour
     private void PlayerMove()
     {
         playerMoveSpeed = rb.velocity.x;
-        if (Input.GetAxis("MoveLeft") != 0)
+        if (Input.GetAxis("leftTrigger") != 0)
         {
             if (playerMoveSpeed > -MaxPlayerMoveSpeed)
             {
                 rb.velocity = new Vector3(rb.velocity.x - playerAcceleration, rb.velocity.y, rb.velocity.z);
             }
         }
-        if (Input.GetAxis("MoveRight") != 0)
+        if (Input.GetAxis("rightTrigger") != 0)
         {
             if (playerMoveSpeed < MaxPlayerMoveSpeed)
             {
                 rb.velocity = new Vector3(rb.velocity.x + playerAcceleration, rb.velocity.y, rb.velocity.z);
             }
         }
-        if (Input.GetAxis("MoveLeft") == 0 && Input.GetAxis("MoveRight") == 0)
+        if (Input.GetAxis("leftTrigger") == 0 && Input.GetAxis("rightTrigger") == 0)
         {
             rb.velocity=new Vector3(0,rb.velocity.y,rb.velocity.z);
         }
-        if(Input.GetAxis("MoveLeft")!= 0 && Input.GetAxis("MoveRight") != 0)
+        if(Input.GetAxis("leftTrigger")!= 0 && Input.GetAxis("rightTrigger") != 0)
         {
             rb.velocity = new Vector3(0, rb.velocity.y, rb.velocity.z);
         }
