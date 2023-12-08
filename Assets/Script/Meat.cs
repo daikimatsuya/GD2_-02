@@ -106,6 +106,10 @@ public class Meat : MonoBehaviour
         {
            isDestroy= true;
         }
+        if(collision.gameObject.tag == "Enemy")
+        {
+            isDestroy = true;
+        }
     }
 
     // Start is called before the first frame update
