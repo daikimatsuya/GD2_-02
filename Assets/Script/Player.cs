@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public GameObject rightLazer;
     public GameObject leftEye;
     public GameObject rightEye;
+    public UIcontroller ui;
 
     Transform llTransform;
     Transform rlTransform;
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
     private float leftRad;
     private float rightRad;
     private float playerMoveSpeed;
+    private int playerHpMax;
 
     public float playerAcceleration;
     public float MaxPlayerMoveSpeed;
@@ -124,27 +126,32 @@ public class Player : MonoBehaviour
         }
         if(meat == 1)
         {
-            playerHp+= meatDamage;
+            if (playerHp < playerHpMax)
+            {
+                playerHp += meatDamage;
+            }
         }
         if (meat == 2)
         {
             playerHp -= meatDamage * 2;
         }
     }
-    public void OnTriggerEnter(Collider other)
+
+    public void OnCollisionEnter(Collision collision)
     {
-        if (other.tag == "rawMeat")
+        if (collision.gameObject.tag == "rawMeat")
         {
             EatMeat(0);
         }
-        if(other.tag == "cookedMeat")
+        if (collision.gameObject.tag == "cookedMeat")
         {
             EatMeat(1);
         }
-        if (other.tag == "coal")
+        if (collision.gameObject.tag == "coal")
         {
             EatMeat(2);
         }
+        ui.SendPlayerHp(playerHp);
     }
     // Start is called before the first frame update
     void Start()
@@ -157,6 +164,10 @@ public class Player : MonoBehaviour
 
         llTransform=leftLazer.GetComponent<Transform>();
         rlTransform=rightLazer.GetComponent<Transform>();
+
+        ui = GameObject.FindWithTag("GameController").GetComponent<UIcontroller>();
+        playerHpMax = playerHp;
+        ui.SendPlayerHp(playerHp);
     }
 
     // Update is called once per frame

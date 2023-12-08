@@ -13,6 +13,8 @@ public class Meat : MonoBehaviour
     private Vector2 acceBuff;
     private bool isReachLazer;
     private bool isCharge;
+    private bool isDestroy;
+
     public float maxX;
     public float maxZ;
 
@@ -102,7 +104,7 @@ public class Meat : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Destroy(this.gameObject);
+           isDestroy= true;
         }
     }
 
@@ -121,7 +123,10 @@ public class Meat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(isDestroy)
+        {
+            Destroy(this.gameObject);
+        }
         Cook();
         AddAcceleration();
    

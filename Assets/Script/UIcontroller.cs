@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class UIcontroller : MonoBehaviour
 {
+    GameObject playerHpBar;
 
-
-    private float playerHpBuff;
+    public float playerHpBuff;
 
 
     public void SendPlayerHp(float hp)
@@ -28,7 +28,7 @@ public class UIcontroller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerHpBar = GameObject.FindWithTag("PlayerHpBar").GetComponent<GameObject>();
     }
 
     // Update is called once per frame

@@ -317,10 +317,11 @@ MonoBehaviour:
   rightLazer: {fileID: 0}
   leftEye: {fileID: 0}
   rightEye: {fileID: 0}
-  playerAcceleration: 0.1
-  MaxPlayerMoveSpeed: 2
-  playerHp: 0
-  meatDamage: 0
+  ui: {fileID: 0}
+  playerAcceleration: 2
+  MaxPlayerMoveSpeed: 8
+  playerHp: 5
+  meatDamage: 1
 --- !u!54 &3300312226813174944
 Rigidbody:
   m_ObjectHideFlags: 0
