@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class UIcontroller : MonoBehaviour
 {
+
+
+    private float playerHpBuff;
+
+
+    public void SendPlayerHp(float hp)
+    {
+        playerHpBuff = hp;
+    }
+    private void PlayerHpBar()
+    {
+
+    }
     private void EnemyUIcontroller()
     {
 
