@@ -8,6 +8,7 @@ public class GameManagerScript : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 60;
+        Screen.SetResolution(1080, 1280, false);
     }
 
     // Update is called once per frame
