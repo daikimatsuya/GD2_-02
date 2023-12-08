@@ -168,6 +168,7 @@ public class Player : MonoBehaviour
         ui = GameObject.FindWithTag("GameController").GetComponent<UIcontroller>();
         playerHpMax = playerHp;
         ui.SendPlayerHp(playerHp);
+        ui.SendPlayerHpMax(playerHpMax);
     }
 
     // Update is called once per frame
