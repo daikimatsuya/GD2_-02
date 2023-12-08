@@ -12,6 +12,7 @@ TagManager:
   - lEye
   - rEye
   - Lazer
+  - PlayerHpBar
   layers:
   - Default
   - TransparentFX

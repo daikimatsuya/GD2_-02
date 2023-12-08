@@ -44,13 +44,13 @@ public class Player : MonoBehaviour
             {
                 leftDegree += 360;
             }
-            if (leftDegree > 255)
+            if (leftDegree > 60 + 180)
             {
-                leftDegree = 255;
+                leftDegree = 60 + 180;
             }
-            if (leftDegree < 105)
+            if (leftDegree < -45 + 180)
             {
-                leftDegree = 105;
+                leftDegree = -45 + 180;
             }
         }
         else
@@ -71,13 +71,13 @@ public class Player : MonoBehaviour
             {
                 rightDegree += 360;
             }
-            if (rightDegree > 255)
+            if (rightDegree > 45 + 180)
             {
-                rightDegree = 255;
+                rightDegree = 45  + 180;
             }
-            if (rightDegree < 105)
+            if (rightDegree < -60 + 180)
             {
-                rightDegree = 105;
+                rightDegree = -60 + 180;
             }
         }
         else
