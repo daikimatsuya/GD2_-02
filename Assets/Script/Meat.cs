@@ -7,6 +7,10 @@ using UnityEngine;
 
 public class Meat : MonoBehaviour
 {
+    private Transform raw;
+    private Transform cooked;
+    private Transform coal;
+
     private int cookTime;
     private int bestTimeBuff;
     private int coalTimeBuff;
@@ -28,12 +32,31 @@ public class Meat : MonoBehaviour
     {
         if(cookTime < bestTimeBuff)
         {
+            if (raw.transform.localScale.x == 1)
+            {
+                raw.transform.transform.localScale = new Vector3(60, 60, 40);
+            }
             return;
         }
         if(cookTime < coalTimeBuff)
         {
+            if(raw.transform.localScale.x != 1)
+            {
+                raw.transform.localScale = Vector3.one;
+            }
+            if(cooked.transform.localScale.x == 1) {
+                cooked.transform.localScale = new Vector3(60, 60, 40);
+            }
             this.tag = "cookedMeat";
             return;
+        }
+
+        if (cooked.transform.localScale.y != 1)
+        {
+            cooked.transform.localScale=Vector3.one;
+        }
+        if(coal.transform.localScale.y == 1) {
+            coal.transform.localScale = new Vector3(60, 60, 40);
         }
         this.tag = "coal";
     }
@@ -122,6 +145,14 @@ public class Meat : MonoBehaviour
   
 
         rb=GetComponent<Rigidbody>();
+        raw = transform.Find("rawModel").GetComponent<Transform>();
+        cooked = transform.Find("cookedModel").GetComponent<Transform>();
+        coal = transform.Find("coalModel").GetComponent<Transform>();
+
+
+        raw.transform.localScale = Vector3.one;
+        cooked.transform.localScale = Vector3.one;
+        coal.transform.localScale = Vector3.one;
     }
 
     // Update is called once per frame
