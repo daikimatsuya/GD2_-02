@@ -8,9 +8,14 @@ public class Enemy : MonoBehaviour
     public float attackCooltime;
     private bool isAttack;
 
+    public GameObject meat;
+
     private void Attack(int type)
     {
+        if(type==0)
+        {
 
+        }
     }
     private void CountDown()
     {
