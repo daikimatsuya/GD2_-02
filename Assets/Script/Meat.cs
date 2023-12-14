@@ -148,7 +148,7 @@ public class Meat : MonoBehaviour
 
         rb =GetComponent<Rigidbody>();
         transform = GetComponent<Transform>();
-        rb.velocity = new Vector3(shotPower * (float)Math.Sin(transform.rotation.y), 0, shotPower * (float)Math.Cos(transform.rotation.y));
+        rb.velocity = new Vector3(shotPower * (float)Math.Sin(transform.rotation.y), 0, -shotPower * (float)Math.Cos(transform.rotation.y));
         raw = transform.Find("rawModel").GetComponent<Transform>();
         cooked = transform.Find("cookedModel").GetComponent<Transform>();
         coal = transform.Find("coalModel").GetComponent<Transform>();

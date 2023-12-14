@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transform: {fileID: 0}
-  shotPower: 10
+  shotPower: 5
   maxX: 20
   maxZ: 20
   bestTime: 3

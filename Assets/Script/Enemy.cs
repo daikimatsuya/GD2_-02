@@ -20,25 +20,23 @@ public class Enemy : MonoBehaviour
     private void Attack(int type)
     {
         if(type==0)
-        {
-            if(time%30==0)
-            {
-                shoot++;
-
-            }
-            time++;
-
-            if (shoot == 3)
-            {
-                shoot = 0;
-                time = 0;
-                SetCooltime(2);
-            }
-            
+        {            
+            MeatShot(45);                      
+            SetCooltime(2);     
         }
         if(type==1)
         {
-     
+            MeatShot(-45);
+            SetCooltime(2);
+        }
+        if (type == 2)
+        {
+
+            SetCooltime(2);
+        }
+        if (type == 3)
+        {
+
             SetCooltime(2);
         }
     }
@@ -59,7 +57,7 @@ public class Enemy : MonoBehaviour
         attackCooltime--;
         if (attackCooltime == 0)
         {
-            rand = Random.Range(0, 1);
+            rand = Random.Range(0, 3);
             isAttack = true;
         }
     }
@@ -71,6 +69,21 @@ public class Enemy : MonoBehaviour
     private void MeatShot(float rad)
     {
         Object instans = Instantiate(meat, new Vector3(tf.position.x, tf.position.y, tf.position.z - 1.5f), new Quaternion(0, rad, 0, 0));
+    }
+    private void EnemyMove(float move)
+    {
+        if(move < 0)
+        {
+
+        }
+        else if(move > 0)
+        {
+
+        }
+        else
+        {
+
+        }
     }
     // Start is called before the first frame update
     void Start()
