@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
     private int time;
     private int shoot;
     private float meatShotRad;
+    private bool isMove;
+    private float enemyVectorX;
 
     public GameObject meat;
     Transform tf;
@@ -36,8 +38,12 @@ public class Enemy : MonoBehaviour
         }
         if (type == 3)
         {
-
-            SetCooltime(2);
+            EnemyMove(0);
+            if (isMove == false)
+            {
+                SetCooltime(2);
+            }
+        
         }
     }
     private void FlagCheck()
@@ -70,19 +76,20 @@ public class Enemy : MonoBehaviour
     {
         Object instans = Instantiate(meat, new Vector3(tf.position.x, tf.position.y, tf.position.z - 1.5f), new Quaternion(0, rad, 0, 0));
     }
-    private void EnemyMove(float move)
+    private void EnemyMove(float destination)
     {
-        if(move < 0)
+        isMove = true;
+        if(destination < tf.position.x)
         {
-
+            
         }
-        else if(move > 0)
+        else if(destination > tf.position.x)
         {
 
         }
         else
         {
-
+            isMove=false;
         }
     }
     // Start is called before the first frame update
