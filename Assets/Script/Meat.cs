@@ -10,6 +10,7 @@ public class Meat : MonoBehaviour
     private Transform raw;
     private Transform cooked;
     private Transform coal;
+    public new Transform transform;
 
     private int cookTime;
     private int bestTimeBuff;
@@ -18,6 +19,7 @@ public class Meat : MonoBehaviour
     private bool isReachLazer;
     private bool isCharge;
     private bool isDestroy;
+    public float shotPower;
 
     public float maxX;
     public float maxZ;
@@ -142,13 +144,17 @@ public class Meat : MonoBehaviour
         cookTime = 0;
         bestTimeBuff = bestTime * 60;
         coalTimeBuff = coalTime * 60;
-  
+       
 
-        rb=GetComponent<Rigidbody>();
+        rb =GetComponent<Rigidbody>();
+        transform = GetComponent<Transform>();
+        rb.velocity = new Vector3(shotPower * (float)Math.Sin(transform.rotation.y), 0, shotPower * (float)Math.Cos(transform.rotation.y));
         raw = transform.Find("rawModel").GetComponent<Transform>();
         cooked = transform.Find("cookedModel").GetComponent<Transform>();
         coal = transform.Find("coalModel").GetComponent<Transform>();
+        
 
+        
 
         raw.transform.localScale = Vector3.one;
         cooked.transform.localScale = Vector3.one;
