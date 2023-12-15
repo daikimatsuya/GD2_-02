@@ -6,7 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    public float hp;
+    public int hp;
     public float attackCooltime;
     private bool isAttack;
     private int rand;
@@ -15,9 +15,12 @@ public class Enemy : MonoBehaviour
     private float meatShotRad;
     private bool isMove;
     private float enemyVectorX;
+    private float moveLimit;
+    private float posBuff;
 
     public GameObject meat;
     Transform tf;
+    Rigidbody rb;
 
     private void Attack(int type)
     {
@@ -38,12 +41,28 @@ public class Enemy : MonoBehaviour
         }
         if (type == 3)
         {
-            EnemyMove(0);
+            EnemyMove(5);
             if (isMove == false)
             {
                 SetCooltime(2);
             }
         
+        }
+        if(type == 4)
+        {
+            EnemyMove(-2);
+            if(isMove == false)
+            {
+                SetCooltime(2);
+            }
+        }
+        if( type == 5)
+        {
+            EnemyMove(3);
+            if(isMove == false)
+            {
+                SetCooltime(2);
+            }
         }
     }
     private void FlagCheck()
@@ -63,7 +82,7 @@ public class Enemy : MonoBehaviour
         attackCooltime--;
         if (attackCooltime == 0)
         {
-            rand = Random.Range(0, 3);
+            rand = Random.Range(0, 6);
             isAttack = true;
         }
     }
@@ -79,24 +98,85 @@ public class Enemy : MonoBehaviour
     private void EnemyMove(float destination)
     {
         isMove = true;
-        if(destination < tf.position.x)
+  
+        if(destination > tf.position.x)
         {
-            
+            enemyVectorX += 0.1f;         
         }
-        else if(destination > tf.position.x)
+        else if(destination < tf.position.x)
         {
-
+            enemyVectorX -= 0.1f;
         }
-        else
+        else if(destination==tf.position.x) 
         {
             isMove=false;
+            enemyVectorX = 0;
+            moveLimit = 0;
+            rb.velocity = Vector3.zero;
+            return;
         }
+        if (destination > 0)
+        {
+            if (moveLimit > destination * 9)
+            {
+                isMove = false;
+                rb.velocity = new Vector3(0, 0, 0);
+                moveLimit = 0;
+                enemyVectorX = 0;
+            }
+            else
+            {
+                moveLimit++;
+            }
+        }
+        if(destination < 0)
+        {
+            if (moveLimit > -destination * 9)
+            {
+                isMove = false;
+                rb.velocity = new Vector3(0, 0, 0);
+                moveLimit = 0;
+                enemyVectorX = 0;
+            }
+            else
+            {
+                moveLimit++;
+            }
+        }
+
+            rb.velocity = new Vector3(rb.velocity.x + enemyVectorX, 0, 0);    
+        if(rb.velocity.x < 0)
+        {
+            if(tf.position.x  < destination)
+            {
+                isMove = false;
+                rb.velocity = new Vector3(0, 0, 0);
+                tf.position = new Vector3(destination, 0, tf.position.z);
+                moveLimit = 0;
+            }
+        }
+        if (rb.velocity.x > 0)
+        {
+            if(tf.position.x> destination)
+            {
+                isMove = false;
+                rb.velocity = new Vector3(0, 0, 0);
+                tf.position = new Vector3(destination, 0, tf.position.z);
+                moveLimit = 0;
+            }
+        }
+        
+    }
+    private int SendHp()
+    {
+        return hp;
     }
     // Start is called before the first frame update
     void Start()
     {
         SetCooltime(1);
         tf = GetComponent<Transform>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame

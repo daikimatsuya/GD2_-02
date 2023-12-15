@@ -136,6 +136,10 @@ public class Player : MonoBehaviour
             playerHp -= meatDamage * 2;
         }
     }
+    public int SendHp()
+    {
+        return playerHp;
+    }
 
     public void OnCollisionEnter(Collision collision)
     {
