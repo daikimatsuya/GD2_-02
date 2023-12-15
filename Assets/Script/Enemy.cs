@@ -167,7 +167,7 @@ public class Enemy : MonoBehaviour
         }
         
     }
-    private int SendHp()
+    public int SendHp()
     {
         return hp;
     }
